@@ -20,22 +20,9 @@ cd test-api-loan
 ```bash
 composer install
 ```
-
-3. Configurer la base de données :
-   - Copier le fichier `.env` vers `.env.local`
-   - Modifier les paramètres de connexion à la base de données dans `.env.local`
-   - Exécuter les migrations :
+3. Démarrer le serveur de développement (optionnel) :
 ```bash
-php bin/console doctrine:migrations:migrate
-```
-
-4. Configurer le serveur web :
-   - Pour Apache, créer un virtual host pointant vers le dossier `public/`
-   - Pour Nginx, créer une configuration pointant vers le dossier `public/`
-
-5. Démarrer le serveur de développement (optionnel) :
-```bash
-symfony server:start
+php -S localhost:8000 -t public
 ```
 
 L'application sera accessible sur `http://localhost:8000`
@@ -45,7 +32,7 @@ L'application sera accessible sur `http://localhost:8000`
 ### 1. Recherche d'offres de prêt
 
 ```bash
-curl -X POST http://localhost:8000/loan-offers/search \
+curl -X POST http://localhost:8000/api/loan-offers/search \
 -H "Content-Type: application/json" \
 -d '{
     "amount": 50000,
@@ -87,7 +74,7 @@ curl -X POST http://localhost:8000/loan-offers/search \
 
 ### Exemple de requête avec erreur de validation :
 ```bash
-curl -X POST http://localhost:8000/loan-offers/search \
+curl -X POST http://localhost:8000/api/loan-offers/search \
 -H "Content-Type: application/json" \
 -d '{
     "amount": 30000,  # Montant invalide
