@@ -5,8 +5,6 @@
 ### Prérequis
 - PHP 8.1 ou supérieur
 - Composer
-- Serveur web (Apache/Nginx) avec support PHP
-- Base de données MySQL/MariaDB
 
 ### Installation
 
