@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\DTO\LoanApplicationDTO;
@@ -17,6 +19,9 @@ class LoanOfferService
 
     /**
      * Recherche et retourne les offres partenaires selon le modèle de demande.
+     */
+    /**
+     * @return array<int, array<string, int|float|string>>
      */
     public function searchOffers(LoanApplicationDTO $model): array
     {
@@ -46,9 +51,9 @@ class LoanOfferService
     }
 
     /**
-     * Récupère et normalise les offres partenaires selon le montant et la durée demandés.
+     * @return LoanOfferDTO[]
      */
-    private function getOffersFromJson($filepath, $amount, $duration, $amountKey, $durationKey, $rateKey, $partner)
+    private function getOffersFromJson(string $filepath, int $amount, int $duration, string $amountKey, string $durationKey, string $rateKey, string $partner): array
     {
         if (!file_exists($filepath)) {
             return [];
@@ -88,17 +93,22 @@ class LoanOfferService
     }
 
     /**
-     * Formate un tableau d'offres LoanOfferDTO en tableau associatif.
+     * @param LoanOfferDTO[] $offers
+     *
+     * @return array<int, array<string, int|float|string>>
      */
-    public function formatOffers(array $offers): array
+    private function formatOffers(array $offers): array
     {
-        return array_map(function ($offer) {
-            return [
+        $formatted = [];
+        foreach ($offers as $offer) {
+            $formatted[] = [
                 'amount' => $offer->getAmount(),
                 'duration' => $offer->getDuration(),
                 'rate' => $offer->getRate(),
                 'partner' => $offer->getPartner(),
             ];
-        }, $offers);
+        }
+
+        return $formatted;
     }
 }

@@ -9,15 +9,16 @@ class ApiJsonResponse extends JsonResponse
     /**
      * ApiJsonResponse constructor.
      *
-     * @param array $data
+     * @param array<mixed, mixed>   $data
+     * @param array<string, string> $headers
      */
-    public function __construct($data = [], int $status = 200, ?string $message = null, array $headers = [], int $options = 0)
+    public function __construct(array $data = [], int $status = 200, ?string $message = null, array $headers = [])
     {
         $responseData = [
             'data' => $data,
             'status' => $status,
             'message' => $message,
         ];
-        parent::__construct($responseData, $status, $headers, $options);
+        parent::__construct($responseData, $status, $headers);
     }
 }

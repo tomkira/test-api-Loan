@@ -30,7 +30,7 @@ class LoanOfferController extends AbstractController
             $this->logger->info('Recherche d\'offres effectuée'.__CLASS__);
             $data = json_decode($request->getContent(), true);
             if (!is_array($data)) {
-                return new ApiJsonResponse(null, Response::HTTP_BAD_REQUEST, 'Invalid JSON');
+                return new ApiJsonResponse([], Response::HTTP_BAD_REQUEST, 'Invalid JSON');
             }
             $model = LoanApplicationDTO::fromData($data);
 
@@ -57,12 +57,16 @@ class LoanOfferController extends AbstractController
         } catch (\Throwable $e) {
             $this->logger->error('Erreur lors de la recherche d\'offres: '.$e->getMessage());
 
-            return new ApiJsonResponse(null, 500, 'Erreur interne serveur: '.$e->getMessage());
+            return new ApiJsonResponse([], 500, 'Erreur interne serveur: '.$e->getMessage());
         }
     }
 
     /**
      * Formate les erreurs de validation en tableau clé => messages.
+     *
+     * @param iterable<\Symfony\Component\Validator\ConstraintViolationInterface> $errors
+     *
+     * @return array<string, string[]>
      */
     private function formatValidationErrors(iterable $errors): array
     {

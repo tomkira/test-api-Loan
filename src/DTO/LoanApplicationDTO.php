@@ -8,21 +8,21 @@ class LoanApplicationDTO
 {
     #[Assert\NotBlank]
     #[Assert\Choice([50000, 100000, 200000, 500000])]
-    private $amount;
+    private int $amount;
 
     #[Assert\NotBlank]
     #[Assert\Choice([15, 20, 25])]
-    private $duration;
+    private int $duration;
 
     #[Assert\NotBlank]
-    private $name;
+    private string $name;
 
     #[Assert\NotBlank]
     #[Assert\Email]
-    private $email;
+    private string $email;
 
     #[Assert\NotBlank]
-    private $phone;
+    private string $phone;
 
     public function getAmount(): int
     {
@@ -74,14 +74,17 @@ class LoanApplicationDTO
         $this->phone = $phone;
     }
 
+    /**
+     * @param array<string, mixed> $array
+     */
     public static function fromData(array $array): self
     {
         $dto = new self();
-        $dto->setAmount($array['amount'] ?? 0);
-        $dto->setDuration($array['duration'] ?? 0);
-        $dto->setName($array['name'] ?? '');
-        $dto->setEmail($array['email'] ?? '');
-        $dto->setPhone($array['phone'] ?? '');
+        $dto->setAmount((int) ($array['amount'] ?? 0));
+        $dto->setDuration((int) ($array['duration'] ?? 0));
+        $dto->setName((string) ($array['name'] ?? ''));
+        $dto->setEmail((string) ($array['email'] ?? ''));
+        $dto->setPhone((string) ($array['phone'] ?? ''));
 
         return $dto;
     }

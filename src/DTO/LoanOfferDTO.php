@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO;
 
 class LoanOfferDTO
 {
-    private $amount;
-    private $duration;
-    private $rate;
-    private $partner;
+    private int $amount;
+    private int $duration;
+    private float $rate;
+    private string $partner;
 
-    public function __construct($amount, $duration, $rate, $partner)
+    public function __construct(int $amount, int $duration, float $rate, string $partner)
     {
         $this->amount = $amount;
         $this->duration = $duration;
@@ -17,22 +19,22 @@ class LoanOfferDTO
         $this->partner = $partner;
     }
 
-    public function getAmount()
+    public function getAmount(): int
     {
         return $this->amount;
     }
 
-    public function getDuration()
+    public function getDuration(): int
     {
         return $this->duration;
     }
 
-    public function getRate()
+    public function getRate(): float
     {
         return $this->rate;
     }
 
-    public function getPartner()
+    public function getPartner(): string
     {
         return $this->partner;
     }

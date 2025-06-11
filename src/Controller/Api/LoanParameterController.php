@@ -27,7 +27,7 @@ class LoanParameterController extends AbstractController
         } catch (\Throwable $e) {
             $this->logger->error('Erreur lors de get amounts: '.$e->getMessage());
 
-            return new ApiJsonResponse(null, 500, 'Erreur interne serveur: '.$e->getMessage());
+            return new ApiJsonResponse([], 500, 'Erreur interne serveur: '.$e->getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ class LoanParameterController extends AbstractController
         } catch (\Throwable $e) {
             $this->logger->error('Erreur lors de get durations: '.$e->getMessage());
 
-            return new ApiJsonResponse(null, 500, 'Erreur interne serveur: '.$e->getMessage());
+            return new ApiJsonResponse([], 500, 'Erreur interne serveur: '.$e->getMessage());
         }
     }
 }
